@@ -46,14 +46,19 @@ void Print(int a[]){
 //File Reader Function
 void ReadFile( int argc, char** argv) {
     int value[9] = {0};
-    int i = 0, a = 0;
+    int a = 0;
+    FILE *fileT;
 
+    char str[] = "test.txt"; 
     if (argc < 2) {
-        printf("Please Enter The File Name:\n");
-        scanf("%s", argv[1]);
+        //printf("Please Enter The File Name:\n");
+        //scanf("%s", str);
+        fileT = fopen(str, "r");   //this is to open the file and asks to read the content
     }
+else{
 
-    FILE *fileT = fopen(argv[1], "r");   //this is to opne the file and asks to read the content
+    fileT = fopen(argv[1], "r");   //this is to opne the file and asks to read the content
+}
 
     printf("Original    ASCII   Decimal   Parity \n");
     printf("--------    -----   -------   -------- \n");
@@ -77,6 +82,7 @@ void ReadFile( int argc, char** argv) {
         }
     }
 }
+
 
 //main function
 int main(int argc, char** argv){
