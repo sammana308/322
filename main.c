@@ -24,6 +24,25 @@ char* Parity(int a[]){
         return "ODD";
 }
 
+//Print Funtion
+void Print(int a[]){
+    int i;
+    //Original Number
+    for(i = 0; i < 8; i++){
+        printf("%d", a[i]);
+    }
+    printf("\t");
+
+    //ASCII
+    printf("%c", BinToDeci(a));
+
+    //Decimal
+    printf("%8d\t", BinToDeci(a));
+
+    //Parity
+    printf("%s", Parity(a));
+}
+
 
 
 int main(int argc, char** argv){
