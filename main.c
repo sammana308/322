@@ -78,7 +78,7 @@ void ReadFile( int argc, char** argv) {
     }
 }
 
-
+//main function
 int main(int argc, char** argv){
     ReadFile(argc, argv);
     return 0;
