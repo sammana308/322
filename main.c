@@ -12,7 +12,7 @@ int BinToDeci(int a[]){
     return Deci;
 }
 
-//Parity Function
+//Parity Function that returns ODD or EVEN
 char* Parity(int a[]){
     int Tally = 0, i;
     for(i = 0; i < 8; i++){
