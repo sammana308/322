@@ -24,7 +24,7 @@ char* Parity(int a[]){
         return "ODD";
 }
 
-//Print Funtion
+//Print Function
 void Print(int a[]){
     int i;
     //Original Number
