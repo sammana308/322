@@ -43,6 +43,40 @@ void Print(int a[]){
     printf("%s", Parity(a));
 }
 
+//File Reader Function
+void ReadFile( int argc, char** argv) {
+    int value[9] = {0};
+    int fileEOF = 0, i = 0, NUM = 0, Length = 4, a = 0;
+
+    if (argc < 2) {
+        printf("Please Enter The File Name:\n");
+        scanf("%s", argv[1]);
+    }
+
+    FILE *fileT = fopen(argv[1], "r");   //this is to opne the file and asks to read the content
+
+    printf("Original    ASCII   Decimal   Parity \n");
+    printf("--------    -----   -------   -------- \n");
+
+    char buffer[9];
+
+    while (fscanf(fileT, "%s", buffer) == 1){
+        //printf("%s  \n", buffer);
+        int i;
+        for(i = 0; i < 8; i++){
+            if(buffer[i] == 48 || buffer[i] == 49) {
+                value[i] = buffer[i] - 48;
+            }
+        }
+
+        Print(value);
+        printf("\n");
+        for (a = 0; a < 8; a++) {
+            value[a] = 0;
+            buffer[a] = 0;
+        }
+    }
+}
 
 
 int main(int argc, char** argv){
