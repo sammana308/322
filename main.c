@@ -46,7 +46,7 @@ void Print(int a[]){
 //File Reader Function
 void ReadFile( int argc, char** argv) {
     int value[9] = {0};
-    int fileEOF = 0, i = 0, NUM = 0, Length = 4, a = 0;
+    int i = 0, a = 0;
 
     if (argc < 2) {
         printf("Please Enter The File Name:\n");
