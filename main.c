@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <math.h>
 
+//global array of NonPrint ASCII
+char* NonPrint[33] = {"NUL", "SOH","STX","ETX","EOT","ENQ","ACK","BEL","BS","HT","LF","VT","FF","CR","SO","SI","DLE","DC1","DC2","DC3","DC4","NAK","SYN","ETB","CAN","EM","SUB","ESC","FS","GS","RS","US"};
+
+
 //Binary to Decimal Function
 int BinToDeci(int a[]){
     int i =0, Deci = 0, b = 0;
 
-    for(i = 7; i >= 1; i--){
+    for(i = 7; i >= 0; i--){
         Deci += a[i] * pow(2, b);
         b++;
     }
@@ -24,7 +28,7 @@ char* Parity(int a[]){
         return "ODD";
 }
 
-//Print Function
+///Print Function
 void Print(int a[]){
     int i;
     //Original Number
@@ -34,13 +38,25 @@ void Print(int a[]){
     printf("\t");
 
     //ASCII
-    printf("%c", BinToDeci(a));
+    int x = BinToDeci(a);
+    if(x>=32 && x<127){
+        printf("%c", x);
+    }
+        // for non print
+    else if(x < 32){
+        printf("%s", *(NonPrint + x)); //NonPrint[a]
+    }
+    else if(x==127)
+        printf("DEL");
+    else
+        printf("man ASCII");
+
 
     //Decimal
-    printf("%8d\t", BinToDeci(a));
+    printf("%15d\t", BinToDeci(a));
 
     //Parity
-    printf("%s", Parity(a));
+    printf("%8s", Parity(a));
 }
 
 //File Reader Function
@@ -60,8 +76,8 @@ else{
     fileT = fopen(argv[1], "r");   //this is to opne the file and asks to read the content
 }
 
-    printf("Original    ASCII   Decimal   Parity \n");
-    printf("--------    -----   -------   -------- \n");
+    printf("Original    ASCII        Decimal   Parity \n");
+    printf("--------    -----        -------   -------- \n");
 
     char buffer[9];
 
