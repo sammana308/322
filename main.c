@@ -45,7 +45,7 @@ void Print(int a[]){
     if(x>=32 && x<127){
         printf("%c", x);
     }
-        //for non print
+    //for non print
     else if(x < 32){
         printf("%s", *(NonPrint + x)); //NonPrint[a]
     }
@@ -83,8 +83,8 @@ return;
 else if (argv[1][0] == '0' || argv[1][0] == '1' || argv[1][0] == '-') {
 
 
-        printf("Original    ASCII   Decimal   Parity \n");
-        printf("--------    -----   -------   -------- \n");
+        printf("Original          ASCII       Decimal     Parity \n");
+        printf("--------         -------     --------   -------- \n");
 
         int count = argc;
         int value[8], l;
@@ -111,8 +111,8 @@ else if (argv[1][0] == '0' || argv[1][0] == '1' || argv[1][0] == '-') {
 
 
 
-        printf("Original    ASCII        Decimal   Parity \n");
-        printf("--------    -----        -------   -------- \n");
+        printf("Original          ASCII       Decimal     Parity \n");
+        printf("--------         -------     --------   -------- \n");
 
         char buffer;
 
