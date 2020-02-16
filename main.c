@@ -42,21 +42,22 @@ void Print(int a[]){
     if(x>=32 && x<127){
         printf("%c", x);
     }
-        // for non print
+        //for non print
     else if(x < 32){
         printf("%s", *(NonPrint + x)); //NonPrint[a]
     }
     else if(x==127)
         printf("DEL");
     else
-        printf("man ASCII");
-
+        printf("iascii");
+     
+     printf("\t");
 
     //Decimal
-    printf("%15d\t", BinToDeci(a));
+    printf("%8d\t", BinToDeci(a));
 
     //Parity
-    printf("%8s", Parity(a));
+    printf("%s", Parity(a));
 }
 
 //File Reader Function
