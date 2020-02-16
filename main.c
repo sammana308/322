@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <math.h>
+#include <fcntl.h>
+#include<sys/types.h>
+#include<sys/stat.h>
 
 //global array of NonPrint ASCII
 char* NonPrint[33] = {"NUL", "SOH","STX","ETX","EOT","ENQ","ACK","BEL","BS","HT","LF","VT","FF","CR","SO","SI","DLE","DC1","DC2","DC3","DC4","NAK","SYN","ETB","CAN","EM","SUB","ESC","FS","GS","RS","US"};
@@ -50,8 +53,8 @@ void Print(int a[]){
         printf("DEL");
     else
         printf("iascii");
-     
-     printf("\t");
+
+    printf("\t");
 
     //Decimal
     printf("%8d\t", BinToDeci(a));
@@ -60,45 +63,86 @@ void Print(int a[]){
     printf("%s", Parity(a));
 }
 
-//File Reader Function
 void ReadFile( int argc, char** argv) {
     int value[9] = {0};
     int a = 0;
-    FILE *fileT;
+    int k, j;
+    int dec;
 
-    char str[] = "test.txt"; 
+
+
     if (argc < 2) {
-        //printf("Please Enter The File Name:\n");
-        //scanf("%s", str);
-        fileT = fopen(str, "r");   //this is to open the file and asks to read the content
-    }
-else{
-
-    fileT = fopen(argv[1], "r");   //this is to opne the file and asks to read the content
+        printf("Invalid input.\n");
+        return;
+    } 
+else if(argv[1][0] == '-' && argc < 3){
+printf("Invalid input. \n");
+return;
 }
 
-    printf("Original    ASCII        Decimal   Parity \n");
-    printf("--------    -----        -------   -------- \n");
+else if (argv[1][0] == '0' || argv[1][0] == '1' || argv[1][0] == '-') {
 
-    char buffer[9];
 
-    while (fscanf(fileT, "%s", buffer) == 1){
-        //printf("%s  \n", buffer);
-        int i;
-        for(i = 0; i < 8; i++){
-            if(buffer[i] == 48 || buffer[i] == 49) {
-                value[i] = buffer[i] - 48;
+        printf("Original    ASCII   Decimal   Parity \n");
+        printf("--------    -----   -------   -------- \n");
+
+        int count = argc;
+        int value[8], l;
+
+        //skipping dash
+        for (j = 1; j < count; j++) {
+            if (argv[j][0] == '-')
+                j++;
+            for (l = 0; l < 8;l++)
+                value[l] = 0;
+            k = 0;
+            while (argv[j][k] != '\0') {
+                value[k] = argv[j][k] - '0';
+                k++;
             }
+            Print(value);
+            printf("\n");
+
         }
 
-        Print(value);
-        printf("\n");
-        for (a = 0; a < 8; a++) {
-            value[a] = 0;
-            buffer[a] = 0;
+    }
+    else {
+        int fileD = open(argv[1], O_RDONLY);
+
+
+
+        printf("Original    ASCII        Decimal   Parity \n");
+        printf("--------    -----        -------   -------- \n");
+
+        char buffer;
+
+        for(k = 0;k<8;k++){
+            value[k] = 0;
+        }
+            int i =0;
+        while (read(fileD, &buffer, 1)){
+            if (buffer == 48 || buffer == 49){
+                value[i] = buffer - 48;
+                i++;
+            }
+            else if(i ==0 && (buffer != 48 || buffer != 49))
+                continue;
+            else if((i%8) == 0 || buffer == ' ' || buffer == '\n')
+                {
+
+
+
+                    Print(value);
+                    printf("\n");
+                    for (a = 0; a < 8; a++) {
+                        value[a] = 0;
+                    }
+                   i=0;  //reset
+                }
         }
     }
 }
+
 
 
 //main function
