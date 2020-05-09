@@ -15,8 +15,8 @@ int main(int argc, char **argv){
             mole = "Pop mole1";
         else
             mole = "Pop mole2";
-        fputs(mole, filePointer);
-        fclose(filePointer);    //gives command
+        fputs(mole, filePointer);//gives command
+        fclose(filePointer);    
     }
     return 0;
 }
