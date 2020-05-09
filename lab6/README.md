@@ -1,7 +1,7 @@
 #Lab6
 ##Name: Sammana Kabir
 
-This program creates daemon and modifies it to handle three signals(SIGTERM, SIGUSR1, SIGUSR2), upon receving these signals the daemon will  either create or destroy a child process.  
+This program creates daemon and modifies it to handle three signals(SIGTERM, SIGUSR1, SIGUSR2), upon receiving these signals the daemon will  either create or destroy a child process.  
 
 5/1/20
 	Started working on spiritd.c and mole.c
