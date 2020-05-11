@@ -45,7 +45,7 @@ static void sigHandler(int signo) {
 
 //main function
     int main(int argc, char **argv) {
-    const char *filePointer = "/lab6.log";
+    const char *filePointer = "~/lab6.log";
         pid_t pid;
         pid_t sid;
 
