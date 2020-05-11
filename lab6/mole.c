@@ -12,9 +12,9 @@ int main(int argc, char **argv){
     if (filePointer != 0){
         char * mole;
         if (argc > 1 && strcmp(argv[1], "1") == 0)
-            mole = "Pop mole1";
+            mole = "Pop mole1\n";
         else
-            mole = "Pop mole2";
+            mole = "Pop mole2\n";
         fputs(mole, filePointer);//gives command
         fclose(filePointer);    
     }
