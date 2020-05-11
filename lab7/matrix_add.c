@@ -9,12 +9,14 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+//Struct for features(size, value, blocks, blockSize)
 struct features{
     int size;
     int value;
     int blocks;
     int blockSize;
 };
+
 void AddMatrix(struct aiocb *cb, struct features *ft);
 void aioInitialize(struct aiocb *cb, off_t offset, size_t blockSize, int fileD);
 void matrixRunner(int argc, char **argv);
@@ -30,7 +32,7 @@ void AddMatrix(struct aiocb *cb, struct features *ft){
         memset(buff, 0, 5);                           //set zero to the char array and then read 4 bytes at a time
         memcpy(buff, (void*)cb->aio_buf+i, 4);
 
-        number = strtol(buff, NULL, 10);      //number from the buffer
+        number = strtol(buff, NULL, 10);              //number from the buffer
         number = number + ft->value;
 
         memset(buff, 0, 5);                           //set the buffer to 0 and write the number
@@ -46,11 +48,10 @@ void aioInitialize(struct aiocb *cb, off_t offset, size_t blockSize, int fileD){
         memset(cb, 0, sizeof(struct aiocb));        //aiocb set to 0
         cb->aio_buf = malloc(blockSize);            //allocate aiocb buffer for reading
     }
-    cb->aio_reqprio = 0;            //cb have same priority(0)
-    cb->aio_fildes = fileD;            //set file descriptors
-    cb->aio_nbytes = blockSize;     //setting bytes to read
+    cb->aio_fildes = fileD;                         //set file descriptors
+    cb->aio_nbytes = blockSize;                     //setting bytes to read
 
-    if(fileD == STDIN_FILENO){         //setting offset
+    if(fileD == STDIN_FILENO){                      //setting offset
         cb->aio_offset = offset;
     }
     else{
@@ -72,9 +73,10 @@ void matrixRunner(int argc, char **argv){
 
     //for recording times
     clock_t  start, stop;
-    start = clock(); //start time
+    start = clock();                              //start time
+    
     srand(time(NULL));
-    Build.value = rand() % 201;                          //random number for m-addition
+    Build.value = rand() % 201;                   //random number for m-addition
     Build.blockSize = Build.size/Build.blocks;    //blocksize
     if(Build.size % Build.blocks){
         fprintf(stderr, "Error message: Size is not divisible by blocks\n");
@@ -97,9 +99,9 @@ void matrixRunner(int argc, char **argv){
    for(i = b_S; i < totalSize; i += b_S){
        aioInitialize(&next, i, b_S, STDIN_FILENO);          //reading the next block
 
-       aio_read(&next);                                        //READ
+       aio_read(&next);                                     //READ
        while(aio_error(&next) == EINPROGRESS);
-       AddMatrix(&current, &Build);                     //adding values
+       AddMatrix(&current, &Build);                         //adding values
        memcpy(&last, &current, sizeof(struct aiocb));       //copy the current block
 
        aioInitialize(&last, i, b_S, STDOUT_FILENO);         //writing the last block
@@ -109,7 +111,7 @@ void matrixRunner(int argc, char **argv){
        aio_return(&last);                                   //RETURN
        memcpy(&current, &next, sizeof(struct aiocb));       //writing over
    }
-    AddMatrix(&current, &Build);         //last block
+    AddMatrix(&current, &Build);                            //last block
 
     aioInitialize(&current,i ,b_S, STDOUT_FILENO);
     aio_write(&current);
