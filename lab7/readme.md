@@ -12,3 +12,6 @@ Started working on the initialization
 5/10/20
 added two more functions
 testing
+uploaded makefile
+
+The matrix_add runs but had to hit enter twice to see the results.
